@@ -1,0 +1,29 @@
+= StreamAPI + Ruby
+
+This is a Ruby gem for the StreamAPI. I have created in order to do a rapid prototype so expect a lot of deficiencies and complete lack of tests. Most of the code is influenced by the Wordnik Ruby client.
+
+= Example Usage
+
+Let's fire up an irb session:
+  $ irb
+  >> require 'streamapi'
+  => true
+
+Then create a session:
+  $ streamapi=StreamAPI::Client.new(:api_key=>yourapiky, :secret_key=>yoursecretkey, :site_id=>yoursiteid)
+
+You can now call any of the methods provided by StreamAPI, for example:
+  $ themes = streamapi.list_themes()
+
+Create a new session:
+  $ session = streamapi.create_session('panosjee',nil,true,false,1)
+
+You can also create the embed object for the StreamAPI player:
+  StreamAPI::Embed.to_html(session['private_host_id'], session['public_host_id'], streamapi.site_id, theme)
+
+
+
+== Copyright
+
+Copyright (c) 2010 Panagiotis Papadopoulos / 6pna.com. See LICENSE for details.
+Patches are very welcome!
