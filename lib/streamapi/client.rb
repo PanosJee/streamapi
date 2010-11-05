@@ -26,17 +26,17 @@ module StreamAPI
     attr_accessor :api_key, :secret_key, :site_id, :site_user_id, :username, :timeout, :debug
 
     def initialize(options={}) 
-     raise(InvalidApiKeyError, "Missing api_key!") if options[:api_key].nil?
-     raise(InvalidSecretKeyError, "Missing secret_key!") if options[:secret_key].nil?
-     raise(InvalidSiteIdError, "Missing site_id!") if options[:site_id].nil?
+      raise(InvalidApiKeyError, "Missing api_key!") if options[:api_key].nil?
+      raise(InvalidSecretKeyError, "Missing secret_key!") if options[:secret_key].nil?
+      raise(InvalidSiteIdError, "Missing site_id!") if options[:site_id].nil?
 
-     @api_key = options[:api_key]
-     @@api_key = @api_key
-     @secret_key = options[:secret_key]
-     @site_id = options[:site_id]
-     @username = options[:username] if options.has_key?('username')
+      @api_key = options[:api_key]
+      @@api_key = @api_key
+      @secret_key = options[:secret_key]
+      @site_id = options[:site_id]
+      @username = options[:username] if options.has_key?('username')
 
-     return self
+      return self
     end
 
     def get_public_host_id(private_host_id = nil, site_user_id = nil)
@@ -49,12 +49,12 @@ module StreamAPI
     end
 
     def create_session(username = nil, fme_key = nil, is_video_private = nil, public_host_id = nil, site_user_id = nil)
-     response = self.class.post("/session/create", :query=>preprocess_options({:username=>username,
+      response = self.class.post("/session/create", :query=>preprocess_options({:username=>username,
          :is_video_private=>is_video_private, :public_host_id=>public_host_id, :site_user_id=>site_user_id}))
     end
 
     def create_user(username)
-     response = self.class.post("/session/create", :query => preprocess_options({:username => username}))
+      response = self.class.post("/session/create", :query => preprocess_options({:username => username}))
     end
 
     def get_live_session_status(public_host_id)
@@ -70,13 +70,11 @@ module StreamAPI
     def list_themes()
       themes = []
       response = self.class.get("/theme/list", :query => preprocess_options)
-      # iterate themes
     end
 
     def list_live_sessions()
-     live_sessions = []
-     response = self.class.get("/session/live/list", :query => preprocess_options)
-     # iterate results
+      live_sessions = []
+      response = self.class.get("/session/live/list", :query => preprocess_options)
     end  
 
     def preprocess_options(options=nil)
@@ -91,8 +89,8 @@ module StreamAPI
     end
 
     def self.sign(options,secret,rid)
-     options.delete_if{ options.has_key?('sig') }
-     MD5.hexdigest(options.sort().collect{|v| v[1]}.join+secret+rid.to_s)
+      options.delete_if{ options.has_key?('sig') }
+      Digest::MD5.hexdigest(options.sort().collect{|v| v[1]}.join+secret+rid.to_s)
     end
   end
 end
